@@ -1,6 +1,4 @@
 ---
-# tasks file for ansible-pgbouncer
-
 - name: install | add apt key
   apt_key:
     url: "https://www.postgresql.org/media/keys/ACCC4CF8.asc"
