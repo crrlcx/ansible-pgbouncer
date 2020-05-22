@@ -1,0 +1,70 @@
+---
+# defaults file for ansible-pgbouncer
+
+dpkg_force_overwrite_configs: false
+
+pgbouncer_package: pgbouncer
+pgbouncer_version: latest
+
+pgbouncer_user: postgres
+pgbouncer_group: postgres
+
+pgbouncer_memlock_enabled: false
+pgbouncer_max_open_files: 65536
+pgbouncer_max_threads: 65536
+pgbouncer_restarted_state: restarted
+
+pgbouncer_listen_addr: 127.0.0.1
+pgbouncer_listen_port: 6432
+
+pgbouncer_log_dir: /var/log/pgbouncer
+pgbouncer_unix_socket_dir: /var/run/postgresql
+
+# pgbouncer_databases:
+  # - selector:
+    # dbname:
+    # host:
+    # port:
+    # user:
+    # password:
+    # auth_user:
+    # pool_size:
+    # reserve_pool:
+    # connect_query:
+    # pool_mode:
+    # max_db_connections:
+    # client_encoding:
+    # datestyle:
+    # timezone:
+pgbouncer_databases:
+  - selector: '*'
+    host: 127.0.0.1
+    port: 5432
+
+pgbouncer_auth_users:
+  - name: postgres
+    auth_hash: md5hash
+
+# Administrative settings
+pgbouncer_administrative_override: []
+
+# Authentication settings
+pgbouncer_authentication_override: []
+
+# Pooler personality questions
+pgbouncer_pooler_override: []
+
+# Connection limits
+pgbouncer_connection_override: []
+
+# Logging
+pgbouncer_logging_override: []
+
+# Timeouts
+pgbouncer_timeouts_override: []
+
+# Low-level tuning options
+pgbouncer_tuning_override: []
+
+# Random stuff
+pgbouncer_random_override: []
