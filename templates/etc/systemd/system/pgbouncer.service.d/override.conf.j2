@@ -1,0 +1,14 @@
+{{ ansible_managed | comment }}
+[Service]
+LimitNOFILE={{ pgbouncer_max_open_files }}
+LimitNPROC={{ pgbouncer_max_threads }}
+{% if pgbouncer_memlock_enabled | bool %}
+LimitMEMLOCK=infinity
+{% endif %}
+Restart=always
+RestartSec=3
+TimeoutSec=300
+# Disable timeout logic and wait until process is stopped
+TimeoutStopSec=0
+KillSignal=SIGTERM
+KillMode=process

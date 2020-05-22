@@ -1,0 +1,60 @@
+---
+
+- name: configure | combine pgbouncer config
+  block:
+    - set_fact:
+        pgbouncer_administrative_combine: "{{ pgbouncer_administrative_config | combine(pgbouncer_administrative_override) | dict2items(key_name='option', value_name='value') }}"
+    - set_fact:
+        pgbouncer_authentication_combine: "{{ pgbouncer_authentication_config | combine(pgbouncer_authentication_override) | dict2items(key_name='option', value_name='value') }}"
+    - set_fact:
+        pgbouncer_pooler_combine: "{{ pgbouncer_pooler_config | combine(pgbouncer_pooler_override) | dict2items(key_name='option', value_name='value') }}"
+    - set_fact:
+        pgbouncer_connection_combine: "{{ pgbouncer_connection_config | combine(pgbouncer_connection_override) | dict2items(key_name='option', value_name='value') }}"
+    - set_fact:
+        pgbouncer_logging_combine: "{{ pgbouncer_logging_config | combine(pgbouncer_logging_override) | dict2items(key_name='option', value_name='value') }}"
+    - set_fact:
+        pgbouncer_timeouts_combine: "{{ pgbouncer_timeouts_config | combine(pgbouncer_timeouts_override) | dict2items(key_name='option', value_name='value') }}"
+    - set_fact:
+        pgbouncer_tuning_combine: "{{ pgbouncer_tuning_config | combine(pgbouncer_tuning_override) | dict2items(key_name='option', value_name='value') }}"
+    - set_fact:
+        pgbouncer_random_combine: "{{ pgbouncer_random_config | combine(pgbouncer_random_override) | dict2items(key_name='option', value_name='value') }}"
+  tags:
+    - always
+
+- name: configure | create pgbouncer directories
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: "{{pgbouncer_user}}"
+    group: "{{pgbouncer_group}}"
+    mode: 0755
+  loop:
+    - "{{ pgbouncer_log_dir }}"
+    - "{{ pgbouncer_unix_socket_dir }}"
+  notify:
+    - restart pgbouncer
+
+- name: configure | create pgbouncer config
+  template:
+    src: etc/pgbouncer/pgbouncer.ini.j2
+    dest: /etc/pgbouncer/pgbouncer.ini
+    owner: "{{pgbouncer_user}}"
+    group: "{{pgbouncer_group}}"
+    mode: 0640
+  notify:
+    - restart pgbouncer
+
+- name: configure | create pgbouncer userlist
+  template:
+    src: etc/pgbouncer/userlist.txt.j2
+    dest: /etc/pgbouncer/userlist.txt
+    owner: "{{pgbouncer_user}}"
+    group: "{{pgbouncer_group}}"
+    mode: 0640
+  notify:
+    - restart pgbouncer
+
+- name: configure | create pgbouncer logrotate job
+  template:
+    src: etc/logrotate.d/pgbouncer.conf.j2
+    dest: /etc/logrotate.d/pgbouncer.conf

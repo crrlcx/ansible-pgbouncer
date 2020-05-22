@@ -1,0 +1,15 @@
+{{ ansible_managed | comment }}
+{{ pgbouncer_log_dir }}/pgbouncer.log {
+	missingok
+	copytruncate
+	compress
+	notifempty
+	sharedscripts
+	create 0640 {{ pgbouncer_user }} {{ pgbouncer_group }}
+	nodateext
+	daily
+	rotate 7
+	postrotate
+		/bin/kill -HUP `cat {{pgbouncer_unix_socket_dir}}/pgbouncer.pid  2>/dev/null` 2> /dev/null || true
+	endscript
+}

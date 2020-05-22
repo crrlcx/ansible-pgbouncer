@@ -1,0 +1,5 @@
+{% if pgbouncer_auth_users | length > 0 %}
+{%   for user in pgbouncer_auth_users %}
+"{{ user.name }}" "{{ user.auth_hash }}"
+{%   endfor %}
+{% endif%}

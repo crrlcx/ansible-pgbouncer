@@ -1,0 +1,81 @@
+{{ ansible_managed | comment }}
+;;;
+;;; PgBouncer configuration file
+;;;
+
+;; database name = connect string
+[databases]
+{% if pgbouncer_databases | length > 0 %}
+{%   for db in pgbouncer_databases %}
+{{ db.selector + ' = ' -}}
+{%     if db.dbname is defined %}dbname={{ db.dbname }} {% endif %}
+{%     if db.host is defined %}host={{ db.host }} {% endif %}
+{%     if db.port is defined %}port={{ db.port }} {% endif %}
+{%     if db.user is defined %}user={{ db.user }} {% endif %}
+{%     if db.password is defined %}password={{ db.password }} {% endif %}
+{%     if db.auth_user is defined %}auth_user={{ db.auth_user }} {% endif %}
+{%     if db.pool_size is defined %}pool_size={{ db.pool_size }} {% endif %}
+{%     if db.reserve_pool is defined %}reserve_pool={{ db.reserve_pool }} {% endif %}
+{%     if db.pool_mode is defined %}pool_mode={{ db.pool_mode }} {% endif %}
+{%     if db.max_db_connections is defined %}max_db_connections={{ db.max_db_connections }} {% endif %}
+{%     if db.client_encoding is defined %}client_encoding={{ db.client_encoding }} {% endif %}
+{%     if db.datestyle is defined %}datestyle={{ db.datestyle }} {% endif %}
+{%     if db.timezone is defined %}timezone={{ db.timezone }} {% endif %}
+{%     if db.connect_query is defined %}connect_query={{ db.connect_query }} {% endif %}
+
+{%   endfor %}
+{% endif %}
+
+;; User-specific configuration
+[users]
+
+;; Configuration section
+[pgbouncer]
+{% if pgbouncer_administrative_combine | length > 0 %}
+;; Administrative settings
+{%   for var in pgbouncer_administrative_combine %}
+{{ var.option }} = {{ var.value }}
+{%   endfor %}
+{% endif %}
+{% if pgbouncer_authentication_combine | length > 0 %}
+;; Authentication settings
+{%   for var in pgbouncer_authentication_combine %}
+{{ var.option }} = {{ var.value }}
+{%   endfor %}
+{% endif %}
+{% if pgbouncer_pooler_combine | length > 0 %}
+;; Pooler personality questions
+{%   for var in pgbouncer_pooler_combine %}
+{{ var.option }} = {{ var.value }}
+{%   endfor %}
+{% endif %}
+{% if pgbouncer_connection_combine | length > 0 %}
+;; Connection limits
+{%   for var in pgbouncer_connection_combine %}
+{{ var.option }} = {{ var.value }}
+{%   endfor %}
+{% endif %}
+{% if pgbouncer_logging_combine | length > 0 %}
+;; Logging
+{%   for var in pgbouncer_logging_combine %}
+{{ var.option }} = {{ var.value }}
+{%   endfor %}
+{% endif %}
+{% if pgbouncer_timeouts_combine | length > 0 %}
+;; Timeouts
+{%   for var in pgbouncer_timeouts_combine %}
+{{ var.option }} = {{ var.value }}
+{%   endfor %}
+{% endif %}
+{% if pgbouncer_tuning_combine | length > 0 %}
+;; Low-level tuning options
+{%   for var in pgbouncer_tuning_combine %}
+{{ var.option }} = {{ var.value }}
+{%   endfor %}
+{% endif %}
+{% if pgbouncer_random_combine | length > 0 %}
+;; Random stuff
+{%   for var in pgbouncer_random_combine %}
+{{ var.option }} = {{ var.value }}
+{%   endfor %}
+{% endif %}
