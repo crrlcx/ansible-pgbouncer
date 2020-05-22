@@ -1,0 +1,23 @@
+galaxy_info:
+  author: carrol@protonmail.com
+  description: Install, setup and run PGBouncer for PostgreSQL as systemd service for VM and BareMetal servers.
+  license: MIT License
+  min_ansible_version: 2.9
+
+  platforms:
+    - name: Ubuntu
+      versions:
+        - 16.04
+        - 18.04
+        - 20.04
+    - name: Debian
+      versions:
+        - 8
+        - 9
+        - 10
+
+  galaxy_tags:
+    - postgresql
+    - pgbouncer
+
+dependencies: []
