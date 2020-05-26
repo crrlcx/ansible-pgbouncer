@@ -13,6 +13,12 @@
   tags:
     - always
 
+- include_tasks: sysvinit.yml
+  when:
+    - ansible_service_mgr != 'systemd'
+  tags:
+    - always
+
 - include_tasks: configure.yml
   tags:
     - always

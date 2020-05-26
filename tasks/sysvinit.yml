@@ -1,0 +1,15 @@
+---
+- name: service | check override path
+  file:
+    path: /etc/default
+    state: directory
+
+- name: service | create service default file
+  template:
+    src: etc/default/pgbouncer.j2
+    dest: /etc/default/pgbouncer.conf
+    owner: root
+    group: root
+    mode: 0644
+  notify:
+    - restart pgbouncer

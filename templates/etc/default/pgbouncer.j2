@@ -1,0 +1,9 @@
+{{ ansible_managed | comment }}
+# It is possible to change the options the daemon is started with.
+# The default setting is shown below, uncomment and apply your changes
+# if you need to modify it.
+
+NAME=pgbouncer
+RUNASUSER="{{ pgbouncer_user }}"
+PIDDIR="{{ pgbouncer_unix_socket_dir }}"
+#OPTS="-d /etc/pgbouncer/pgbouncer.ini"
