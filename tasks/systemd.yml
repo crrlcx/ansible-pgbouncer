@@ -16,3 +16,4 @@
     mode: 0644
   notify:
     - reload systemd config
+    - restart pgbouncer
