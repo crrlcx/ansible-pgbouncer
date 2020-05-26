@@ -5,6 +5,12 @@ LimitNPROC={{ pgbouncer_max_threads }}
 {% if pgbouncer_memlock_enabled | bool %}
 LimitMEMLOCK=infinity
 {% endif %}
+User={{ pgbouncer_user }}
+Group={{ pgbouncer_group }}
+ExecReload=/bin/kill -SIGHUP $MAINPID
+PIDFile={{ pgbouncer_unix_socket_dir }}/pgbouncer.pid
+PermissionsStartOnly=true
+PrivateTmp=true
 Restart=always
 RestartSec=3
 TimeoutSec=300
