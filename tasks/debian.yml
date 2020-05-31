@@ -13,7 +13,7 @@
 
 - name: install | update package cache
   apt:
-    update_cache: yes
+    update_cache: true
   when:
     - pgbouncer_apt_sourcelist.changed or pgbouncer_apt_key.changed
 
@@ -22,11 +22,11 @@
     name:
       - "{{ pgbouncer_package }}{% if pgbouncer_version | bool and pgbouncer_version != 'latest' %}={{ pgbouncer_version }}*{% endif %}"
     state: latest
-    install_recommends: yes
-    force: yes
-    force_apt_get: yes
+    install_recommends: true
+    force: true
+    force_apt_get: true
     dpkg_options: "{{ dpkg_force_overwrite_configs | ternary('force-confdef,force-confnew', 'force-confdef,force-confold') }}"
-    update_cache: yes
+    update_cache: true
     cache_valid_time: 3600
   environment:
     DEBIAN_FRONTEND: noninteractive

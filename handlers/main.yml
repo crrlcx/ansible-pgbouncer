@@ -3,7 +3,7 @@
 
 - name: reload systemd config
   systemd:
-    daemon_reload: yes
+    daemon_reload: true
   when:
     - ansible_service_mgr == 'systemd'
 
@@ -11,7 +11,7 @@
   service:
     name: pgbouncer
     state: "{{ pgbouncer_restarted_state }}"
-    enabled: yes
+    enabled: true
   listen:
     - restart pgbouncer
 
