@@ -3,9 +3,9 @@
 ;;; PgBouncer configuration file
 ;;;
 
+{% if pgbouncer_databases | length > 0 %}
 ;; database name = connect string
 [databases]
-{% if pgbouncer_databases | length > 0 %}
 {%   for db in pgbouncer_databases %}
 {{ db.selector + ' = ' -}}
 {%     if db.dbname is defined %}dbname={{ db.dbname }} {% endif %}
@@ -26,8 +26,16 @@
 {%   endfor %}
 {% endif %}
 
+{% if pgbouncer_auth_users | length > 0 %}
 ;; User-specific configuration
 [users]
+{%   for user in pgbouncer_auth_users %}
+{%     if user.pool_mode is defined or user.max_user_connections is defined %}{{ user.name }} =
+{%       if user.pool_mode is defined %}pool_mode={{ user.pool_mode }} {% endif %}
+{%       if user.max_user_connections is defined %}max_user_connections={{ user.max_user_connections }} {% endif %}
+{%     endif %}
+{%   endfor %}
+{% endif %}
 
 ;; Configuration section
 [pgbouncer]

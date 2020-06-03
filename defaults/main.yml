@@ -1,6 +1,5 @@
 ---
 # defaults file for ansible-pgbouncer
-
 dpkg_force_overwrite_configs: false
 
 pgbouncer_package: pgbouncer
@@ -44,6 +43,8 @@ pgbouncer_databases:
 pgbouncer_auth_users:
   - name: postgres
     auth_hash: md5hash
+    pool_mode: transaction
+    max_user_connections: 100
 
 # Administrative settings
 pgbouncer_administrative_override: []
