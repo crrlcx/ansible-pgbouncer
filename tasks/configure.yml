@@ -17,19 +17,24 @@
         pgbouncer_tuning_combine: "{{ pgbouncer_tuning_config | combine(pgbouncer_tuning_override) | dict2items(key_name='option', value_name='value') }}"
     - set_fact:
         pgbouncer_random_combine: "{{ pgbouncer_random_config | combine(pgbouncer_random_override) | dict2items(key_name='option', value_name='value') }}"
-  tags:
-    - always
 
-- name: configure | create pgbouncer directories
+- name: configure | create pgbouncer log dir
   file:
-    path: "{{ item }}"
+    path: "{{ pgbouncer_log_dir }}"
     state: directory
     owner: "{{pgbouncer_user}}"
     group: "{{pgbouncer_group}}"
     mode: 0755
-  loop:
-    - "{{ pgbouncer_log_dir }}"
-    - "{{ pgbouncer_unix_socket_dir }}"
+  notify:
+    - restart pgbouncer
+
+- name: configure | create pgbouncer socket dir
+  file:
+    path: "{{ pgbouncer_unix_socket_dir }}"
+    state: directory
+    owner: "{{pgbouncer_user}}"
+    group: "{{pgbouncer_group}}"
+    mode: 02775
   notify:
     - restart pgbouncer
 

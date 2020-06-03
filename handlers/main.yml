@@ -7,7 +7,7 @@
   when:
     - ansible_service_mgr == 'systemd'
 
-- name: handle pgbouncer service state is "{{ pgbouncer_restarted_state }}"
+- name: handle pgbouncer service state is 'pgbouncer_restarted_state'
   service:
     name: pgbouncer
     state: "{{ pgbouncer_restarted_state }}"
@@ -15,7 +15,7 @@
   listen:
     - restart pgbouncer
 
-- name: wait for port "{{ pgbouncer_listen_port }}" to become open on the host
+- name: wait for 'pgbouncer_listen_port' to become open on the host
   wait_for:
     host: "{{ hostvars[inventory_hostname]['inventory_hostname'] }}"
     port: "{{ pgbouncer_listen_port }}"

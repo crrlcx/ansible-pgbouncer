@@ -7,7 +7,7 @@
 
 - name: install | add repos
   apt_repository:
-    repo: "deb http://apt.postgresql.org/pub/repos/apt/ {{ ansible_distribution_release }}-pgdg main"
+    repo: "deb http://apt.postgresql.org/pub/repos/apt/ {{ ansible_distribution_release | lower }}-pgdg main"
     state: present
   register: pgbouncer_apt_sourcelist
 
@@ -15,7 +15,7 @@
   apt:
     update_cache: true
   when:
-    - pgbouncer_apt_sourcelist.changed or pgbouncer_apt_key.changed
+    - pgbouncer_apt_key.changed or pgbouncer_apt_sourcelist.changed
 
 - name: install | install package
   apt:
