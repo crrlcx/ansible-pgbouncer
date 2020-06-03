@@ -26,7 +26,7 @@ pgbouncer_group: postgres
 pgbouncer_memlock_enabled: false
 pgbouncer_max_open_files: 65536
 pgbouncer_max_threads: 65536
-pgbouncer_restarted_state: restarted
+pgbouncer_service_state: restarted
 
 # Where handle connections
 pgbouncer_listen_addr: 127.0.0.1
@@ -40,7 +40,7 @@ pgbouncer_unix_socket_dir: /var/run/postgresql
 
 # PostgreSQL connection
 pgbouncer_databases:
-  - selector: '*'
+  - selector: "*"
     host: 127.0.0.1
     port: 5432
 

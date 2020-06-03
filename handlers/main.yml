@@ -7,10 +7,10 @@
   when:
     - ansible_service_mgr == 'systemd'
 
-- name: handle pgbouncer service state is 'pgbouncer_restarted_state'
+- name: handle pgbouncer service state is 'pgbouncer_service_state'
   service:
     name: pgbouncer
-    state: "{{ pgbouncer_restarted_state }}"
+    state: "{{ pgbouncer_service_state }}"
     enabled: true
   listen:
     - restart pgbouncer
