@@ -23,5 +23,7 @@
     timeout: 120
     delay: 5
   ignore_errors: false
+  when:
+    - pgbouncer_service_state != 'stopped'
   listen:
     - restart pgbouncer
