@@ -4,6 +4,8 @@
 - name: reload systemd config
   systemd:
     daemon_reload: true
+  listen:
+    - restart pgbouncer
   when:
     - ansible_service_mgr == 'systemd'
 
