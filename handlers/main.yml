@@ -22,7 +22,7 @@
     host: "{{ hostvars[inventory_hostname]['inventory_hostname'] }}"
     port: "{{ pgbouncer_listen_port }}"
     state: started
-    timeout: 120
+    timeout: 30
     delay: 5
   ignore_errors: false
   when:
