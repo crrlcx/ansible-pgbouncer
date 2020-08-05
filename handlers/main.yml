@@ -1,7 +1,7 @@
 ---
 # handlers file for ansible-pgbouncer
 
-- name: reload systemd config
+- name: to be sure that systemd config is reload
   systemd:
     daemon_reload: true
   listen:

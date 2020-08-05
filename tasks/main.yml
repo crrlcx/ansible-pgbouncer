@@ -24,3 +24,8 @@
     - always
 
 - meta: flush_handlers
+
+- name: check pgbouncer service state
+  service:
+    name: pgbouncer
+    state: "{{ (pgbouncer_service_state == 'stopped') | ternary('stopped', 'started') }}"
